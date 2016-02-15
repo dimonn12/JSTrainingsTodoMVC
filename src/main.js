@@ -1,10 +1,9 @@
 "use strict";
-
 function addTodo(form, event) {
     let value = form['new-todo'].value;
 
     //I don't want to use document API to create elements and then to append them. JQuery is much easier!!!
-    $(document.querySelector("#todo-list")).append(`<li name="todo-element">
+    $("#todo-list").append(`<li name="todo-element">
     <div class="view">
         <input class="toggle" onchange="toggleCompleted(this)" type="checkbox">
         <label ondblclick="showEditForm(this)">${value}</label>
@@ -26,7 +25,7 @@ function showEditForm(element) {
 }
 
 function saveTodo(form, event) {
-    $(form).toggleClass("hidden");
+    form.classList.toggle("hidden");
     $(form).siblings("div.view").toggleClass("hidden");
     let newValue = form['edit-todo'].value;
     $(form).siblings("div.view").children("label").text(newValue);
@@ -35,12 +34,12 @@ function saveTodo(form, event) {
 
 function toggleAll(element) {
     let completed = element.checked;
-    let elements = $("li[name='todo-element']");
+    let elements = document.querySelectorAll("li[name='todo-element']");
     for (let i = 0; i < elements.length; i++) {
         if (completed) {
-            $(elements[i]).addClass("completed");
+            elements[i].classList.add("completed");
         } else {
-            $(elements[i]).removeClass("completed");
+            elements[i].classList.remove("completed");
         }
         let $toggle = $(elements[i]).find("input.toggle").prop({"checked": completed})
     }
@@ -76,7 +75,7 @@ function showAll(elem) {
     document.getElementById("valueHolder").innerHTML = ($filteredCollection.length).toString();
     $filteredCollection.removeClass("hidden");
 
-    $(elem).addClass("selected");
+    elem.classList.add("selected");
 };
 
 function showActive(elem) {
@@ -86,7 +85,7 @@ function showActive(elem) {
     document.getElementById("valueHolder").innerHTML = ($filteredCollection.length).toString();
     $filteredCollection.removeClass("hidden");
 
-    $(elem).addClass("selected");
+    elem.classList.add("selected");
 };
 
 function showCompleted(elem) {
@@ -96,5 +95,5 @@ function showCompleted(elem) {
     document.getElementById("valueHolder").innerHTML = ($filteredCollection.length).toString();
     $filteredCollection.removeClass("hidden");
 
-    $(elem).addClass("selected");
+    elem.classList.add("selected");
 };
